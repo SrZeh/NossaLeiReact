@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dcdcdc; /* Fundo cinza */
+}
+
+.header {
+    background-color: #333; /* Fundo escuro para o cabeçalho */
+    padding: 15px;
+    text-align: left;
+    color: white; /* Texto branco no cabeçalho */
+}
+
+.logo {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.logo img {
+    width: 160px; /* Dobro do tamanho da imagem do logo */
+}
+
+nav {
+    display: inline-block;
+    float: right; /* Alinha os botões à direita */
+}
+
+nav a {
+    color: #FFA500; /* Laranja para os botões */
+    padding: 15px; /* Aumenta o tamanho dos botões */
+    text-decoration: none;
+    border-radius: 5px; /* Cantos redondos */
+    margin-left: 20px; /* Distância entre os botões */
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 99%; /* Largura reduzida para os campos de texto e dropdown */
+    margin-bottom: 10px;
+    border-radius: 2%;
+}
+
+.button-container {
+    text-align: center;
+}
+
+button {
+    padding: 20px; /* Aumenta o tamanho dos botões */
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; /* Cantos redondos */
+}
+
+button#submitBtn {
+    background-color: #4CAF50; /* Verde para o botão de enviar */
+    color: white;
+    margin-right: 10px; /* Distância entre os botões */
+}
+
+button#clearBtn {
+    background-color: #FFA500; /* Laranja para o botão de limpar */
+    color: white;
+}
+
+ul {
+    list-style: none; /* Remove os marcadores da lista */
+    padding: 0;
+}
+
+li {
+    border: 2px solid #4CAF50; /* Grade verde ao redor da célula */
+    margin-bottom: 10px;
+    padding: 10px; /* Espaçamento interno */
+}
+
+/* ... Seu código CSS anterior ... */
+
+select {
+    width: 100%; /* Largura reduzida para o dropdown */
+    margin-bottom: 10px;
+    font-size: 20px;
+    height: 20px;
+}
+
+/* ... Seu código CSS posterior ... */
+
