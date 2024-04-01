@@ -1,7 +1,14 @@
+
 import React, { useState } from 'react';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import { fetchLeiData } from './Table';
+
+
+const atualizarPagina = () => {
+    // Esta função pode conter qualquer lógica necessária para atualizar a página, como recarregar a página
+    window.location.reload();
+  };
 
 
 const Form = () => {
@@ -52,6 +59,7 @@ const Form = () => {
         } catch (error) {
             console.error('Error writing document: ', error);
         }
+        atualizarPagina();
 
     };
 
