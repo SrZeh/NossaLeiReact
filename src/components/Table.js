@@ -3,13 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Form from './Form';
-import PopupForm, {openPopup} from './PopupForm';
+import PopupForm, { openPopup } from './PopupForm';
 
 
-const atualizarPagina = () => {
-  // Esta função pode conter qualquer lógica necessária para atualizar a página, como recarregar a página
-  window.location.reload();
-};
 
 export const fetchLeiData = async (selectedAbrangencia) => {
   try {
@@ -42,7 +38,7 @@ const Table = () => {
     setShowPopup(true);
     setSelectedId(id);
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchLeiData(selectedAbrangencia);
@@ -69,7 +65,7 @@ const Table = () => {
 
   return (
     <div>
-      
+
       {showPopup && <PopupForm leiId={selectedId} closePopup={() => setShowPopup(false)} />}
       <div>
         <h1 style={{ textAlign: 'center' }}>Escolha a Abrangência</h1>
@@ -114,14 +110,14 @@ const Table = () => {
               <td>{lei.exposicao_motivos}</td>
               <td>{lei.texto_lei}</td>
               <td>
-                <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
-                <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => openPopup(lei.id)}>Alterar</button>
+                <button style={{ fontSize: 15, backgroundColor: '#FF0000' }} onClick={() => handleDelete(lei.id)}>Excluir</button>
+                <button style={{ fontSize: 15, marginLeft: 10, backgroundColor: '#FFFF00' }} onClick={() => openPopup(lei.id)}>Alterar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
+
     </div>
   );
 };

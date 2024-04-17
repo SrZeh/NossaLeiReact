@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 const atualizarPagina = () => {
     // Esta função pode conter qualquer lógica necessária para atualizar a página, como recarregar a página
     window.location.reload();
-  };
+};
 const PopupForm = ({ leiId, closePopup }) => {
     const [leiData, setLeiData] = useState(leiId);
     const [formData, setFormData] = useState({
@@ -70,7 +70,7 @@ const PopupForm = ({ leiId, closePopup }) => {
                     <textarea id="exposicao_motivos" value={formData.exposicao_motivos} onChange={handleChange} rows="4" cols="30" required></textarea>
                     <label htmlFor="texto_lei">Texto da lei</label>
                     <textarea id="texto_lei" value={formData.texto_lei} onChange={handleChange} rows="4" cols="30" required></textarea>
-                    <button type="submit">Salvar</button>
+                    <button style={{ backgroundColor: '#28a745' }} type="submit">Salvar</button>
                 </form>
             </div>
         </Modal>

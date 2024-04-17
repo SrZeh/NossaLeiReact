@@ -8,7 +8,7 @@ import { fetchLeiData } from './Table';
 const atualizarPagina = () => {
     // Esta função pode conter qualquer lógica necessária para atualizar a página, como recarregar a página
     window.location.reload();
-  };
+};
 
 
 const Form = () => {
@@ -107,8 +107,8 @@ const Form = () => {
                 <label htmlFor="texto_lei">Texto da Lei:</label>
                 <textarea id="texto_lei" value={formData.texto_lei} onChange={handleChange} rows="4" cols="30" required></textarea>
                 <div className="button-container">
-                    <button style={{ marginRight: 20, fontSize: 15 }} type="button" onClick={enviarLei}>Enviar</button>
-                    <button style={{ marginRight: 20, fontSize: 15 }} onClick={limpar}>Limpar</button>
+                    <button style={{ marginRight: 20, fontSize: 15, backgroundColor: '#28a745' }} type="button" onClick={enviarLei}>Enviar</button>
+                    <button style={{ marginRight: 20, fontSize: 15, backgroundColor: '#FF7F7F' }} onClick={limpar}>Limpar</button>
                 </div>
             </form>
         </div>
