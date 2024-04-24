@@ -10,12 +10,14 @@ import { getFirestore, doc, updateDoc } from "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyDPXEQFN6Nc0uNCFH9EVGTKUheRH0Erqb4",
     authDomain: "nossalei-bd3b6.firebaseapp.com",
+    databaseURL: "https://nossalei-bd3b6-default-rtdb.firebaseio.com",
     projectId: "nossalei-bd3b6",
     storageBucket: "nossalei-bd3b6.appspot.com",
     messagingSenderId: "821142695417",
-    appId: "1:821142695417:web:2519d7cec9080bf66aa128",
-    measurementId: "G-WNB43BX411"
+    appId: "1:821142695417:web:d6d2935501ec46006aa128",
+    measurementId: "G-KPGKCYJZ3R"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
