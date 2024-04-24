@@ -1,6 +1,5 @@
-// Table.js
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Form from './Form';
 import PopupForm, { openPopup } from './PopupForm';
@@ -9,12 +8,11 @@ import PopupForm, { openPopup } from './PopupForm';
 
 export const fetchLeiData = async (selectedAbrangencia) => {
   try {
-    if (selectedAbrangencia === "Todas") { // Fetch all data
+    if (selectedAbrangencia === "Todas") {
       const querySnapshot = await getDocs(collection(db, "leis"));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       return data;
-    }
-    else {
+    } else {
       const q = query(collection(db, "leis"), where("abrangencia", "==", selectedAbrangencia));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -22,7 +20,7 @@ export const fetchLeiData = async (selectedAbrangencia) => {
     }
   } catch (error) {
     console.error('Error fetching data:', error);
-    return []; // Return an empty array in case of error
+    return [];
   }
 };
 
@@ -38,7 +36,7 @@ const Table = () => {
     setShowPopup(true);
     setSelectedId(id);
   };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchLeiData(selectedAbrangencia);
@@ -48,10 +46,11 @@ const Table = () => {
     fetchData();
   }, [selectedAbrangencia]);
 
+
+
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "leis", id));
-      // After deleting, update the data by refetching
       const data = await fetchLeiData(selectedAbrangencia);
       setLeiData(data);
     } catch (error) {
@@ -59,9 +58,31 @@ const Table = () => {
     }
   };
 
-  const handleAbrangenciaChange = (event) => {
-    setSelectedAbrangencia(event.target.value);
+  const handlePopUp = () => {
+    setShowPopup(!showPopup);
   };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const atualizarLei = async (id) => {
+    try {
+      await setDoc(doc(db, "leis", id), formData);
+      setShowPopup(false);
+      setFormData({
+        abrangencia: '',
+        ramo_direito: '',
+        nome_proposta: '',
+        exposicao_motivos: '',
+        texto_lei: ''
+      });
+    } catch (error) {
+      console.error('Error writing document: ', error);
+    }
+  };
+
+  let lei;
 
   return (
     <div>
@@ -71,19 +92,19 @@ const Table = () => {
         <h1 style={{ textAlign: 'center' }}>Escolha a Abrangência</h1>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 10 }}>
           <label>
-            <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={handleAbrangenciaChange} />
+            <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Municipal
           </label>
           <label>
-            <input type="radio" value="Estadual" checked={selectedAbrangencia === "Estadual"} onChange={handleAbrangenciaChange} />
+            <input type="radio" value="Estadual" checked={selectedAbrangencia === "Estadual"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Estadual
           </label>
           <label>
-            <input type="radio" value="Federal" checked={selectedAbrangencia === "Federal"} onChange={handleAbrangenciaChange} />
+            <input type="radio" value="Federal" checked={selectedAbrangencia === "Federal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Federal
           </label>
           <label>
-            <input type="radio" value="Todas" checked={selectedAbrangencia === "Todas"} onChange={handleAbrangenciaChange} />
+            <input type="radio" value="Todas" checked={selectedAbrangencia === "Todas"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Todas
           </label>
         </div>
@@ -110,11 +131,12 @@ const Table = () => {
               <td>{lei.exposicao_motivos}</td>
               <td>{lei.texto_lei}</td>
               <td>
-                <button style={{ fontSize: 15, backgroundColor: '#FF0000' }} onClick={() => handleDelete(lei.id)}>Excluir</button>
-                <button style={{ fontSize: 15, marginLeft: 10, backgroundColor: '#FFFF00' }} onClick={() => openPopup(lei.id)}>Alterar</button>
+                <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
+                <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => openPopup(lei.id)}>Alterar</button>
               </td>
             </tr>
           ))}
+          
         </tbody>
       </table>
 

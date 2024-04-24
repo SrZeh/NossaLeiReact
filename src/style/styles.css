@@ -54,7 +54,7 @@ textarea {
 }
 
 button {
-    padding: 20px; /* Aumenta o tamanho dos botões */
+    padding: 10px; /* Aumenta o tamanho dos botões */
     margin-top: 10px;
     cursor: pointer;
     border: none;
