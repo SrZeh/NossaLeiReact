@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderOnBoarding } from "../components/Header";
+import { HeaderOnBoarding } from "../components/Header"; //importando
 
 export default function ForgotPasswordScreen() {
     return (<div>
