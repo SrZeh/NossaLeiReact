@@ -23,20 +23,9 @@ NossaLei é um projeto desenvolvido como parte da disciplina PMI da Faculdade Ce
 
 ## Instalação e Uso
 
-1. Clone este repositório: `<code id="cloneCommand" onclick="copyToClipboard('git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git')">git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git</code>`
-2. Navegue até o diretório do projeto: `<code id="navigateCommand" onclick="copyToClipboard('cd NossaLeiReact')">cd NossaLeiReact</code>`
-3. Instale as dependências: `<code id="installCommand" onclick="copyToClipboard('npm install')">npm install</code>`
-4. Execute o projeto: `<code id="startCommand" onclick="copyToClipboard('npm start')">npm start</code>`
+1. Clone este repositório: `git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git`
+2. Navegue até o diretório do projeto: `cd NossaLeiReact`
+3. Instale as dependências: `npm install`
+4. Execute o projeto: `npm start`
 5. Acesse a aplicação em seu navegador: [http://localhost:3000](http://localhost:3000)
 
-<script>
-function copyToClipboard(text) {
-  var textarea = document.createElement("textarea");
-  textarea.value = text;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textarea);
-  alert("Comando copiado para a área de transferência!");
-}
-</script>
