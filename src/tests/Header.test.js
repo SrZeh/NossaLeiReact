@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react'; // importe React
 import { MemoryRouter } from 'react-router-dom'; // Importe MemoryRouter
 import Header from '../components/Header';
 
