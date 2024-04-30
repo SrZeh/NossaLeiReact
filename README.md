@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+NossaLei
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+NossaLei é um projeto desenvolvido como parte da disciplina PMI da Faculdade Cesusc. O objetivo principal deste projeto é criar uma plataforma web para criacao e assinatura de futuros projetos de lei.
 
-## Available Scripts
+Integrantes
 
-In the project directory, you can run:
+Filipe Polnow
+Vinicius Guimarães de Oliveira
+Jose Gabriel Berton
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Tecnologias Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React: Uma biblioteca JavaScript para construção de interfaces de usuário.
+Firebase: Uma plataforma de desenvolvimento de aplicativos móveis e web desenvolvida pelo Google.
+Firestore: Uma banco de dados NoSql da plataforma Firebase.
 
-### `npm test`
+Funcionalidades
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Cadastro e Login de Usuários: Permitirá que os usuários criem contas e façam login na plataforma.
+Visualização de Legislações: Os usuários poderão visualizar as legislações municipais disponíveis na plataforma.
+Busca Avançada: Funcionalidade de busca avançada para facilitar a localização de legislações específicas.
+Assinaturas: Permitira que os usuarios assinem leis especificas.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Instalação e Uso
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Clone este repositório: git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git
+Navegue até o diretório do projeto: cd NossaLeiReact
+Instale as dependências: npm install
+Execute o projeto: npm start
+Acesse a aplicação em seu navegador: http://localhost:3000
