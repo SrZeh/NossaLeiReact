@@ -23,10 +23,21 @@ NossaLei é um projeto desenvolvido como parte da disciplina PMI da Faculdade Ce
 
 ## Instalação e Uso
 
-1. Clone este repositório: ```bash
-2. git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git```
-3. Navegue até o diretório do projeto: `cd NossaLeiReact`
-4. Instale as dependências: `npm install`
-5. Execute o projeto: `npm start`
-6. Acesse a aplicação em seu navegador: [http://localhost:3000](http://localhost:3000)
+ Clone este repositório:
+```bash
+git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git
+```
+Navegue até o diretório do projeto:
+```bash
+cd NossaLeiReact
+```
+Instale as dependências:
+```bash
+npm install
+```
+Execute o projeto: 
+```bash
+npm start
+```
+Acesse a aplicação em seu navegador: [http://localhost:3000](http://localhost:3000)
 
