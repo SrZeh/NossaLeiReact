@@ -6,7 +6,6 @@ import { fetchLeiData } from './Table';
 
 
 const atualizarPagina = () => {
-    // Esta função pode conter qualquer lógica necessária para atualizar a página, como recarregar a página
     window.location.reload();
 };
 
@@ -49,7 +48,6 @@ const Form = () => {
             texto_lei: formData.texto_lei
         };
 
-        // Log the formDataToSend to verify its content
         console.log("FormDataToSend:", formDataToSend);
 
         try {
@@ -76,7 +74,6 @@ const Form = () => {
     return (
         <div className="container">
             <h1 style={{ textAlign: 'center' }}>Cadastro de Leis de Iniciativa Popular</h1>
-            {/* Dropdown for the abrangência da lei */}
             <label htmlFor="abrangencia">Abrangência da Lei:</label>
             <select id="abrangencia" value={formData.abrangencia} onChange={handleChange} required>
                 <option value="">Selecione a abrangência</option>
@@ -84,8 +81,6 @@ const Form = () => {
                 <option value="estadual">Estadual</option>
                 <option value="federal">Federal</option>
             </select>
-
-            {/* Dropdown for the ramo do direito da proposta de lei */}
             <label htmlFor="ramo_direito">Ramo do Direito da Proposta de Lei:</label>
             <select id="ramo_direito" value={formData.ramo_direito} onChange={handleChange} required>
                 <option value="">Selecione o ramo do direito</option>
@@ -98,7 +93,6 @@ const Form = () => {
                 <option value="civil">Cível</option>
                 <option value="penal">Penal</option>
             </select>
-
             <form id="formulario_lei">
                 <label htmlFor="nome_proposta">Nome da Proposta de Lei:</label>
                 <textarea id="nome_proposta" value={formData.nome_proposta} onChange={handleChange} rows="4" cols="30" required></textarea>

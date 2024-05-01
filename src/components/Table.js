@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase';
-import Form from './Form';
-import PopupForm, { openPopup } from './PopupForm';
+import PopupForm from './PopupForm';
 
 
 
@@ -28,7 +27,7 @@ export const fetchLeiData = async (selectedAbrangencia) => {
 
 const Table = () => {
   const [leiData, setLeiData] = useState([]);
-  const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas'); // Default selection
+  const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas');
   const [showPopup, setShowPopup] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
@@ -36,7 +35,7 @@ const Table = () => {
     setShowPopup(true);
     setSelectedId(id);
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchLeiData(selectedAbrangencia);
@@ -136,7 +135,7 @@ const Table = () => {
               </td>
             </tr>
           ))}
-          
+
         </tbody>
       </table>
 
