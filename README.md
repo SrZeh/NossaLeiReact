@@ -2,6 +2,18 @@
 
 NossaLei é um projeto desenvolvido como parte da disciplina PMI da Faculdade Cesusc. O objetivo principal deste projeto é criar uma plataforma web para criação e assinatura de futuros projetos de lei.
 
+## Problema
+
+Dificuldade de inserir uma proposta de lei de iniciativa popular para votação no congresso e senado brasileiro.
+
+## Nicho
+
+Todo cidadão brasileiro.
+
+## Proposta de Valor
+
+Viabilizar ao cidadão a participação direta no processo legislativo de forma online e segura.
+
 ## Integrantes
 
 - Filipe Polnow
