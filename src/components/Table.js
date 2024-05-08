@@ -1,9 +1,8 @@
+// Table.js
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import PopupForm from './PopupForm';
-
-
 
 export const fetchLeiData = async (selectedAbrangencia) => {
   try {
@@ -22,8 +21,6 @@ export const fetchLeiData = async (selectedAbrangencia) => {
     return [];
   }
 };
-
-
 
 const Table = () => {
   const [leiData, setLeiData] = useState([]);
@@ -44,8 +41,6 @@ const Table = () => {
 
     fetchData();
   }, [selectedAbrangencia]);
-
-
 
   const handleDelete = async (id) => {
     try {
@@ -81,11 +76,8 @@ const Table = () => {
     }
   };
 
-  let lei;
-
   return (
     <div>
-
       {showPopup && <PopupForm leiId={selectedId} closePopup={() => setShowPopup(false)} />}
       <div>
         <h1 style={{ textAlign: 'center' }}>Escolha a Abrangência</h1>
@@ -135,10 +127,8 @@ const Table = () => {
               </td>
             </tr>
           ))}
-
         </tbody>
       </table>
-
     </div>
   );
 };

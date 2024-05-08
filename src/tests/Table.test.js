@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import App from '../components/Table';
+import Form from '../components/Form';
 
-test('renders Pagina Login Nossa Lei', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Todas/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders form', () => {
+  render(<Form />);
+
+  // Usando uma expressão regular para encontrar o texto "Cadastro"
+  const cadastroText = screen.getByText(/Cadastro/i);
+  expect(cadastroText).toBeInTheDocument();
 });
