@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import PopupForm from './PopupForm';
 
@@ -57,31 +57,12 @@ const Table = () => {
     }
   };
 
-  const handlePopUp = () => {
-    setShowPopup(!showPopup);
-  };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.id]: e.target.value });
+  // };
 
-  const atualizarLei = async (id) => {
-    try {
-      await setDoc(doc(db, "leis", id), formData);
-      setShowPopup(false);
-      setFormData({
-        abrangencia: '',
-        ramo_direito: '',
-        nome_proposta: '',
-        exposicao_motivos: '',
-        texto_lei: ''
-      });
-    } catch (error) {
-      console.error('Error writing document: ', error);
-    }
-  };
 
-  let lei;
 
   return (
     <div>
