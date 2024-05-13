@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import PopupForm from './PopupForm';
+import BrazilNews from './BrazilNews';
+import IBGENoticias from './IBGENoticias';
 
 
 
@@ -66,7 +68,8 @@ const Table = () => {
 
   return (
     <div>
-
+      {/* <BrazilNews /> */}
+      <IBGENoticias />
       {showPopup && <PopupForm leiId={selectedId} closePopup={() => setShowPopup(false)} />}
       <div>
         <h1 style={{ textAlign: 'center' }}>Escolha a Abrangência</h1>
