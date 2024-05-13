@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - name: Run tests
-      #   run: npm test
+      - name: Add npm to PATH
+        run: export PATH="$PATH:/caminho/para/o/diretorio/do/npm/bin"
+      - name: Run tests
+        run: npm test
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
