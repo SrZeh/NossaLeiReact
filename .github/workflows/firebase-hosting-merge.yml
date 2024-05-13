@@ -15,6 +15,12 @@ jobs:
         run: npm test
 
       - run: npm ci && npm run build
+      
+      - name: Install GNU tar
+        run: |
+          choco install tar
+          refreshenv
+          
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
