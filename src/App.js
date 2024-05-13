@@ -5,6 +5,7 @@ import NewUserScreen from "./screens/NewUserScreen";
 import NewLawScreen from "./screens/NewLawScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 
+
 export default function App() {
   return (
     <Router>
