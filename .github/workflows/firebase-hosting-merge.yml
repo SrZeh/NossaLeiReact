@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PATH: C:\Program Files\nodejs:$PATH
+      RUNNER_TOOL_CACHE: C:\Windows\system32
     steps:
       - uses: actions/checkout@v4
       
