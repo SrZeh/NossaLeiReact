@@ -9,22 +9,16 @@ jobs:
     env:
       PATH: C:\Program Files\nodejs:$PATH
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       
       - name: Run tests
         run: npm test
 
       - run: npm ci && npm run build
-      
-      - name: Install GNU tar
-        run: |
-          choco install tar
-          refreshenv
-          
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOSSALEI_BD3B6 }}
           channelId: live
           projectId: nossalei-bd3b6
-
