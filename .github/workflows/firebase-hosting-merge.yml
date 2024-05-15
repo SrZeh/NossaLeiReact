@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build_and_deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       PATH: C:\Program Files\nodejs:$PATH
     steps:
@@ -13,7 +13,6 @@ jobs:
       
       - name: Run tests
         run: npm test
-
       - run: npm ci && npm run build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
