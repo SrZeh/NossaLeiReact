@@ -11,7 +11,6 @@ function NewLawScreen() {
             <Header />
             <div style={{ padding: 30 }}>
                 <Form />
-                <Table />
             </div>
         </div>
     );
