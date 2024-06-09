@@ -37,7 +37,7 @@ Viabilizar ao cidadão a participação direta no processo legislativo de forma 
 
  Clone este repositório:
 ```bash
-git clone https://github.com/viniciusgdoliveira/NossaLeiReact.git
+git clone https://github.com/SrZeh/NossaLeiReact.git
 ```
 Navegue até o diretório do projeto:
 ```bash
