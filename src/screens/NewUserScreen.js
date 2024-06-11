@@ -14,7 +14,7 @@ export default function NewUserScreen() {
             <HeaderOnBoarding />
             <div style={{ width: '80%', margin: '0 auto', padding: '0 10%', textAlign: 'center' }}>
                 <div>
-                    <h1>Cadastre seu e-mail e senha no NossaLei</h1>
+                    <h1><strong>Cadastre seu e-mail e senha no NossaLei</strong></h1>
                 </div>
                 <div style={{ marginTop: '20px' }}>
                     <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
