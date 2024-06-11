@@ -132,8 +132,8 @@ const Table = () => {
               <td>{lei.exposicao_motivos}</td>
               <td>{lei.texto_lei}</td>
               <td>
-                <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
-                <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => openPopup(lei.id)}>Alterar</button>
+                <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Exclui</button>
+                <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => openPopup(lei.id)}>Altera</button>
               </td>
             </tr>
           ))}
