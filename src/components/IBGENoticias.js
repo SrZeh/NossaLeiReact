@@ -30,10 +30,10 @@ const IBGENoticias = () => {
 
   return (
     <div>
-      <h2 style={{ fontSize: '20px', marginBottom: '10px', textAlign:'center' }}>Últimas Notícias do Brasil</h2>
+      <h2 style={{ fontSize: '20px', marginBottom: '10px', textAlign: 'center' }}>Últimas Notícias do Brasil</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {noticiasExibidas.map(noticia => (
-          <div key={noticia.id} style={{ flex: '0 0 calc(50% - 20px)', marginBottom: '10px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box', marginTop: '0', marginBottom: '0' }}>
+          <div key={noticia.id} style={{ flex: '0 0 calc(50% - 20px)', marginBottom: '10px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box', marginTop: '0' }}>
             <h3 style={{ fontSize: '14px', marginBottom: '10px', lineHeight: '1.2' }}>{noticia.titulo}</h3>
             <p style={{ fontSize: '12px', marginBottom: '10px', lineHeight: '1.2', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{noticia.introducao}</p>
             <a href={noticia.link} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12px' }}>Leia mais</a>

@@ -58,33 +58,7 @@ const Table = () => {
     }
   };
 
-  const handlePopUp = () => {
-    setShowPopup(!showPopup);
-  };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-
-  const atualizarLei = async (id) => {
-    try {
-      await setDoc(doc(db, "leis", id), formData);
-      setShowPopup(false);
-      setFormData({
-        abrangencia: '',
-        ramo_direito: '',
-        nome_proposta: '',
-        exposicao_motivos: '',
-        texto_lei: ''
-      });
-    } catch (error) {
-      console.error('Error writing document: ', error);
-    }
-  };
 
   return (
     <div>

@@ -5,9 +5,6 @@ import { db } from '../firebase';
 import { fetchLeiData } from './Table';
 
 
-const atualizarPagina = () => {
-    window.location.reload();
-};
 
 
 const Form = () => {
@@ -57,7 +54,7 @@ const Form = () => {
         } catch (error) {
             console.error('Error writing document: ', error);
         }
-        atualizarPagina();
+
 
     };
 
