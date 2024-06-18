@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import PopupForm from './PopupForm';
 
@@ -26,13 +26,7 @@ const Table = () => {
   const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas');
   const [showPopup, setShowPopup] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [formData, setFormData] = useState({
-    abrangencia: '',
-    ramo_direito: '',
-    nome_proposta: '',
-    exposicao_motivos: '',
-    texto_lei: ''
-  });
+
 
   const openPopup = (id) => {
     setShowPopup(true);

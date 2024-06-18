@@ -45,14 +45,15 @@ const Form = () => {
             texto_lei: formData.texto_lei
         };
 
-        console.log("FormDataToSend:", formDataToSend);
+        // console.log("FormDataToSend:", formDataToSend);
 
         try {
             await addDoc(collection(db, "leis"), formDataToSend);
             await fetchLeiData(formData.abrangencia);
             limpar();
-        } catch (error) {
-            console.error('Error writing document: ', error);
+        }
+        catch (error) {
+            // console.error('Error writing document: ', error);
         }
 
 

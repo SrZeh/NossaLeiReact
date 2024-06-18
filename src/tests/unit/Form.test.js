@@ -1,41 +1,49 @@
-// src/tests/unit/Form.test.js
-
 import React from 'react';
-import { render, fireEvent, act } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import Form from '../../components/Form';
-import firebase from '../../firebase'; // Correct import of mocked firebase
+import { db, collection, addDoc } from '../../firebase';
 
-jest.mock('../../firebase'); // Automatic mock works
+jest.mock('../../firebase', () => {
+    const firestore = {
+        collection: jest.fn(() => ({
+            add: jest.fn(() => Promise.resolve({ id: 'lei-1' })),
+        })),
+    };
+    return {
+        db: firestore,
+        collection: jest.fn(() => firestore.collection()),
+        addDoc: jest.fn((collectionRef, data) => firestore.collection().add(data)),
+    };
+});
 
-describe('Form Component', () => {
-    it('should submit form data correctly', async () => {
+describe('Form', () => {
+    it('adds a new document to Firestore when the form is submitted', async () => {
         const { getByLabelText, getByText } = render(<Form />);
 
-        // Fill out form fields
-        fireEvent.change(getByLabelText('Abrangência da Lei:'), { target: { value: 'municipal' } });
-        fireEvent.change(getByLabelText('Ramo do Direito da Proposta de Lei:'), { target: { value: 'constitucional' } });
-        fireEvent.change(getByLabelText('Nome da Proposta de Lei:'), { target: { value: 'Teste Lei' } });
-        fireEvent.change(getByLabelText('Exposição de Motivos do Projeto de Lei:'), { target: { value: 'Motivos do teste' } });
-        fireEvent.change(getByLabelText('Texto da Lei:'), { target: { value: 'Texto da lei de teste' } });
+        const abrangenciaInput = getByLabelText('Abrangência da Lei:');
+        const ramoDireitoInput = getByLabelText('Ramo do Direito da Proposta de Lei:');
+        const nomePropostaInput = getByLabelText('Nome da Proposta de Lei:');
+        const exposicaoMotivosInput = getByLabelText('Exposição de Motivos do Projeto de Lei:');
+        const textoLeiInput = getByLabelText('Texto da Lei:');
+        const enviarButton = getByText('Enviar');
 
-        // Submit form
-        await act(async () => {
-            fireEvent.click(getByText('Enviar'));
+        fireEvent.change(abrangenciaInput, { target: { value: 'municipal' } });
+        fireEvent.change(ramoDireitoInput, { target: { value: 'processual' } });
+        fireEvent.change(nomePropostaInput, { target: { value: 'Proposta de Lei' } });
+        fireEvent.change(exposicaoMotivosInput, { target: { value: 'Motivos da Proposta' } });
+        fireEvent.change(textoLeiInput, { target: { value: 'Texto da Lei' } });
+
+        fireEvent.click(enviarButton);
+
+        await waitFor(() => {
+            expect(addDoc).toHaveBeenCalledTimes(1);
+            expect(addDoc).toHaveBeenCalledWith(collection(db, 'leis'), {
+                abrangencia: 'municipal',
+                ramo_direito: 'processual',
+                nome_proposta: 'Proposta de Lei',
+                exposicao_motivos: 'Motivos da Proposta',
+                texto_lei: 'Texto da Lei',
+            });
         });
-
-        // Assert that addDoc was called with the correct data
-        expect(firebase.firestore().collection).toHaveBeenCalledWith('your-collection-name'); // Replace with your actual collection name
-        expect(firebase.firestore().collection().add).toHaveBeenCalledWith({
-            abrangencia: 'Municipal',
-            ramo_direito: 'Constitucional',
-            nome_proposta: 'Teste Lei',
-            exposicao_motivos: 'Motivos do teste',
-            texto_lei: 'Texto da lei de teste'
-        });
-
-        // Ensure other assertions related to form submission
-        // ...
     });
-
-    // Add more test cases as needed...
 });
