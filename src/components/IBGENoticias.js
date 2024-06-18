@@ -11,7 +11,7 @@ const IBGENoticias = () => {
       try {
         const response = await axios.get('http://servicodados.ibge.gov.br/api/v3/noticias/?tipo=noticia&qtd=8&destaque=1&de=01-01-2022');
         if (!response.data.items) {
-          throw new Error('Erro ao carregar as notícias');
+          throw new Error('Erro ao carregar as notícias.');
         }
         setNoticias(response.data.items);
       } catch (error) {
