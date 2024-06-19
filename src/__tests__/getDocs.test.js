@@ -4,16 +4,13 @@ describe('getDocs', () => {
     let testCollectionRef;
 
     beforeEach(async () => {
-        testCollectionRef = collection(db, 'testCollection');
+        testCollectionRef = collection(db, 'testGetCollection');
         // Add some test documents
-        console.log('Adding document 1...');
         await addDoc(testCollectionRef, { name: 'Document 1', value: 1 });
-        console.log('Adding document 2...');
         await addDoc(testCollectionRef, { name: 'Document 2', value: 2 });
 
         // Log the documents in the collection after adding
         const querySnapshot = await getDocs(testCollectionRef);
-        console.log('Documents in collection:', querySnapshot.docs.map(doc => doc.data()));
     });
 
     afterEach(async () => {
@@ -28,7 +25,7 @@ describe('getDocs', () => {
         const querySnapshot = await getDocs(testCollectionRef);
 
         // Verify that the query snapshot contains the expected number of documents
-        expect(querySnapshot.docs.length).toBe(3);
+        expect(querySnapshot.docs.length).toBe(2);
 
         // Verify that the retrieved documents have the correct data
         // querySnapshot.forEach((doc, index) => {
