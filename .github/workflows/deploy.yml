@@ -19,10 +19,10 @@ jobs:
           node-version: '16'  # ou a versão do Node.js que você está usando
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run tests
-        run: npm test  # ou o comando específico para rodar os testes do seu projeto
+        run: yarn test  # ou o comando específico para rodar os testes do seu projeto
   build:
     runs-on: ubuntu-latest
 
@@ -36,7 +36,7 @@ jobs:
           node-version: '16'  # ou a versão do Node.js que você está usando
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run build
         run: npm run build  # ou o comando específico para construir seu projeto
