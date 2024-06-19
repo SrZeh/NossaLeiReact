@@ -8,9 +8,6 @@ describe('getDocs', () => {
         // Add some test documents
         await addDoc(testCollectionRef, { name: 'Document 1', value: 1 });
         await addDoc(testCollectionRef, { name: 'Document 2', value: 2 });
-
-        // Log the documents in the collection after adding
-        const querySnapshot = await getDocs(testCollectionRef);
     });
 
     afterEach(async () => {
@@ -21,7 +18,7 @@ describe('getDocs', () => {
         });
     });
 
-    it('should retrieve all documents from a collection', async () => {
+    it('Deve fazer GET em todos os doc', async () => {
         const querySnapshot = await getDocs(testCollectionRef);
 
         // Verify that the query snapshot contains the expected number of documents

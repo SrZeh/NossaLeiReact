@@ -18,7 +18,7 @@ describe('deleteDoc', () => {
         });
     });
 
-    it('should delete a document', async () => {
+    it('Dever deletar o documento', async () => {
         const docId = 'myDoc';
         const docRef = doc(db, 'testCollection', docId);
 

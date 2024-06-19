@@ -15,7 +15,7 @@ describe('setDoc', () => {
         });
     });
 
-    it('should create a new document if it does not exist', async () => {
+    it('Deve criar um novo documento', async () => {
         const docId = 'newDoc';
         const newDocumentData = { name: 'New Document', value: 456 };
 
@@ -28,7 +28,7 @@ describe('setDoc', () => {
         expect(docSnapshot.data()).toEqual(newDocumentData);
     });
 
-    it('should update an existing document', async () => {
+    it('Deve atualizar o documento', async () => {
         const docId = 'existingDoc';
         const initialDocumentData = { name: 'Existing Document', value: 123 };
         const updatedDocumentData = { name: 'Updated Document', value: 456 };
