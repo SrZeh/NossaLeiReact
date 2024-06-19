@@ -27,9 +27,6 @@ describe('getDocs', () => {
         // Verify that the query snapshot contains the expected number of documents
         expect(querySnapshot.docs.length).toBe(2);
 
-        // Verify that the retrieved documents have the correct data
-        // querySnapshot.forEach((doc, index) => {
-        //     expect(doc.data()).toEqual({ name: `Document ${index + 1}`, value: index + 1 });
-        // });
+
     });
 });
