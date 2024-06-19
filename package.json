@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/*.js"
   },
   "eslintConfig": {
     "extends": [
@@ -49,7 +50,7 @@
     "@babel/preset-typescript": "^7.24.7",
     "@types/jest": "^29.5.12",
     "firebase": "^10.12.2",
-    "jest": "^27.5.1",
+    "globals": "^15.6.0",
     "react-scripts": "^5.0.1"
   },
   "jest": {
