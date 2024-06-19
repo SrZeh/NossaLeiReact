@@ -23,6 +23,12 @@ jobs:
 
       - name: Run tests
         run: npx jest --coverage  # ou o comando específico para rodar os testes do seu projeto
+
+      - name: save artfacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/Icov-report/*
   build:
     runs-on: ubuntu-latest
 
