@@ -22,7 +22,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test  # ou o comando específico para rodar os testes do seu projeto
+        run: npx jest --coverage  # ou o comando específico para rodar os testes do seu projeto
   build:
     runs-on: ubuntu-latest
 
