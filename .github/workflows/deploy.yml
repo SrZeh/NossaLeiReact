@@ -24,6 +24,10 @@ jobs:
       - name: Run tests
         run: npx jest --coverage  # ou o comando específico para rodar os testes do seu projeto
 
+      - name: listar arquivos
+        run: ls -la
+        
+
       - name: save artfacts
         uses: actions/upload-artifact@v4
         with:
