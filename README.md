@@ -16,9 +16,10 @@ Viabilizar ao cidadão a participação direta no processo legislativo de forma 
 
 ## Integrantes
 
+- Claudio Dalla Valle
 - Filipe Polnow
-- Vinicius Guimarães de Oliveira
 - Jose Gabriel Berton
+- Vinicius Guimarães de Oliveira
 
 ## Tecnologias Utilizadas
 
