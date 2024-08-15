@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import { fetchLeiData } from './Table';
-
-
+import { useAuth } from '../context/AuthContext';
 
 
 const Form = () => {
+    const { currentUser } = useAuth();
+
     const [formData, setFormData] = useState({
         abrangencia: '',
         ramo_direito: '',
@@ -42,21 +42,17 @@ const Form = () => {
             ramo_direito: ramodireito,
             nome_proposta: formData.nome_proposta,
             exposicao_motivos: formData.exposicao_motivos,
-            texto_lei: formData.texto_lei
+            texto_lei: formData.texto_lei,
+            email_usuario: currentUser ? currentUser.email : 'Anônimo' // Adicione o e-mail do usuário
         };
-
-        // console.log("FormDataToSend:", formDataToSend);
 
         try {
             await addDoc(collection(db, "leis"), formDataToSend);
             await fetchLeiData(formData.abrangencia);
             limpar();
+        } catch (error) {
+            console.error('Error writing document: ', error);
         }
-        catch (error) {
-            // console.error('Error writing document: ', error);
-        }
-
-
     };
 
     const limpar = () => {
