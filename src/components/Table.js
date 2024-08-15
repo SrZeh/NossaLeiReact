@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from '../firebase';
-import PopupForm from './PopupForm';
 import { useAuth } from '../context/AuthContext';
 
 // Função para buscar dados de leis
@@ -27,13 +26,55 @@ const Table = () => {
   const { currentUser } = useAuth(); // Obtém o usuário atual do contexto de autenticação
   const [leiData, setLeiData] = useState([]);
   const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas');
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
 
-  // Função para abrir o popup de edição
-  const openPopup = (id) => {
-    setShowPopup(true);
-    setSelectedId(id);
+  const [editingItem, setEditingItem] = useState(null);
+  const [formData, setFormData] = useState({
+    abrangencia: '',
+    ramo_direito: '',
+    nome_proposta: '',
+    exposicao_motivos: '',
+    texto_lei: ''
+  });
+
+  // Função para atualizar os dados do formulário
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
+  };
+
+  // Função para enviar as alterações
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (editingItem) {
+      try {
+        const leiRef = doc(db, "leis", editingItem);
+        await updateDoc(leiRef, formData);
+        const data = await fetchLeiData(selectedAbrangencia);
+        setLeiData(data);
+        setEditingItem(null);
+        setFormData({
+          abrangencia: '',
+          ramo_direito: '',
+          nome_proposta: '',
+          exposicao_motivos: '',
+          texto_lei: ''
+        });
+      } catch (error) {
+        console.error("Erro ao atualizar a lei:", error);
+      }
+    }
+  };
+
+  // Função para iniciar a edição
+  const startEditing = (lei) => {
+    setEditingItem(lei.id);
+    setFormData({
+      abrangencia: lei.abrangencia,
+      ramo_direito: lei.ramo_direito,
+      nome_proposta: lei.nome_proposta,
+      exposicao_motivos: lei.exposicao_motivos,
+      texto_lei: lei.texto_lei
+    });
   };
 
   // Efeito para buscar dados sempre que a abrangência selecionada mudar
@@ -46,14 +87,17 @@ const Table = () => {
     fetchData();
   }, [selectedAbrangencia]);
 
-  // Função para excluir uma lei
+  // Função para excluir uma lei com confirmação
   const handleDelete = async (id) => {
-    try {
-      await deleteDoc(doc(db, "leis", id));
-      const data = await fetchLeiData(selectedAbrangencia);
-      setLeiData(data);
-    } catch (error) {
-      console.error("Error:", error);
+    const confirmDelete = window.confirm('Você tem certeza de que deseja excluir esta lei?');
+    if (confirmDelete) {
+      try {
+        await deleteDoc(doc(db, "leis", id));
+        const data = await fetchLeiData(selectedAbrangencia);
+        setLeiData(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -86,11 +130,10 @@ const Table = () => {
   };
 
   return (
-    <div>
-      {showPopup && <PopupForm leiId={selectedId} closePopup={() => setShowPopup(false)} />}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <div>
         <h2>Escolha a Abrangência</h2>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 10 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10 }}>
           {/* Opções de abrangência */}
           <label>
             <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
@@ -113,6 +156,7 @@ const Table = () => {
       <table style={{ width: '100%', tableLayout: 'auto' }}>
         <thead>
           <tr>
+            <th style={{ textAlign: 'left' }}>Número de Assinaturas</th> {/* Nova coluna para o número de assinaturas */}
             <th style={{ textAlign: 'left' }}>Abrangência</th>
             <th style={{ textAlign: 'left' }}>Ramo do Direito</th>
             <th style={{ textAlign: 'left' }}>Nome da Proposta</th>
@@ -126,6 +170,7 @@ const Table = () => {
             const isSigned = lei.assinaturas?.includes(currentUser.email); // Verifica se o usuário já assinou a lei
             return (
               <tr key={lei.id}>
+                <td>{lei.assinaturas?.length || 0}</td> {/* Exibe o número de assinaturas */}
                 <td>{lei.abrangencia}</td>
                 <td>{lei.ramo_direito}</td>
                 <td>{lei.nome_proposta}</td>
@@ -135,7 +180,7 @@ const Table = () => {
                   {currentUser.email === lei.email_usuario ? (
                     <>
                       <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
-                      <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => openPopup(lei.id)}>Alterar</button>
+                      <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => startEditing(lei)}>Alterar</button>
                     </>
                   ) : (
                     isSigned ? (
@@ -150,6 +195,40 @@ const Table = () => {
           })}
         </tbody>
       </table>
+      {editingItem && (
+        <div style={{ marginTop: 20, width: '100%', maxWidth: 600 }}>
+          <h3>Editar Lei</h3>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+            <label htmlFor="abrangencia">Abrangência:</label>
+            <select id="abrangencia" name="abrangencia" value={formData.abrangencia} onChange={handleInputChange} required>
+              <option value="">Selecione a abrangência</option>
+              <option value="Municipal">Municipal</option>
+              <option value="Estadual">Estadual</option>
+              <option value="Federal">Federal</option>
+            </select>
+            <label htmlFor="ramo_direito">Ramo do Direito:</label>
+            <select id="ramo_direito" name="ramo_direito" value={formData.ramo_direito} onChange={handleInputChange} required>
+              <option value="">Selecione o ramo do direito</option>
+              <option value="Processual">Processual</option>
+              <option value="Administrativo">Administrativo</option>
+              <option value="Constitucional">Constitucional</option>
+              <option value="Consumidor">Consumidor</option>
+              <option value="Ambiental">Ambiental</option>
+              <option value="Tributária">Tributária</option>
+              <option value="Cível">Cível</option>
+              <option value="Penal">Penal</option>
+            </select>
+            <label htmlFor="nome_proposta">Nome da Proposta:</label>
+            <textarea id="nome_proposta" name="nome_proposta" value={formData.nome_proposta} onChange={handleInputChange} rows="4" required></textarea>
+            <label htmlFor="exposicao_motivos">Exposição dos Motivos:</label>
+            <textarea id="exposicao_motivos" name="exposicao_motivos" value={formData.exposicao_motivos} onChange={handleInputChange} rows="4" required></textarea>
+            <label htmlFor="texto_lei">Texto da Lei:</label>
+            <textarea id="texto_lei" name="texto_lei" value={formData.texto_lei} onChange={handleInputChange} rows="4" required></textarea>
+            <button type="submit">Salvar Alterações</button>
+            <button type="button" onClick={() => setEditingItem(null)}>Cancelar</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
