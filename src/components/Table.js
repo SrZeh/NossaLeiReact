@@ -26,7 +26,7 @@ const Table = () => {
   const { currentUser } = useAuth(); // Obtém o usuário atual do contexto de autenticação
   const [leiData, setLeiData] = useState([]);
   const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas');
-
+  const [expandedRow, setExpandedRow] = useState(null);
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({
     abrangencia: '',
@@ -35,7 +35,13 @@ const Table = () => {
     exposicao_motivos: '',
     texto_lei: ''
   });
+  const toggleExpandRow = (leiId) => {
+    setExpandedRow(expandedRow === leiId ? null : leiId);
+  };
 
+  const truncateText = (text) => {
+    return text.length > 10 ? text.slice(0, 10) + '...' : text;
+  };
   // Função para atualizar os dados do formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -156,7 +162,7 @@ const Table = () => {
       <table style={{ width: '100%', tableLayout: 'auto' }}>
         <thead>
           <tr>
-            <th style={{ textAlign: 'left' }}>Número de Assinaturas</th> {/* Nova coluna para o número de assinaturas */}
+            <th style={{ textAlign: 'left' }}>Assinaturas</th> {/* Nova coluna para o número de assinaturas */}
             <th style={{ textAlign: 'left' }}>Abrangência</th>
             <th style={{ textAlign: 'left' }}>Ramo do Direito</th>
             <th style={{ textAlign: 'left' }}>Nome da Proposta</th>
@@ -169,66 +175,107 @@ const Table = () => {
           {leiData.map(lei => {
             const isSigned = lei.assinaturas?.includes(currentUser.email); // Verifica se o usuário já assinou a lei
             return (
-              <tr key={lei.id}>
-                <td>{lei.assinaturas?.length || 0}</td> {/* Exibe o número de assinaturas */}
-                <td>{lei.abrangencia}</td>
-                <td>{lei.ramo_direito}</td>
-                <td>{lei.nome_proposta}</td>
-                <td>{lei.exposicao_motivos}</td>
-                <td>{lei.texto_lei}</td>
-                <td>
-                  {currentUser.email === lei.email_usuario ? (
-                    <>
-                      <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
-                      <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => startEditing(lei)}>Alterar</button>
-                    </>
-                  ) : (
-                    isSigned ? (
-                      <button style={{ fontSize: 15 }} onClick={() => handleUnsign(lei.id)}>Retirar Assinatura</button>
+              <React.Fragment key={lei.id}>
+                <tr>
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{lei.assinaturas?.length || 0}</td> {/* Exibe o número de assinaturas */}
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{truncateText(lei.abrangencia)}</td>
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{truncateText(lei.ramo_direito)}</td>
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{truncateText(lei.nome_proposta)}</td>
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{truncateText(lei.exposicao_motivos)}</td>
+                  <td onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>{truncateText(lei.texto_lei)}</td>
+                  <td>
+                    {currentUser.email === lei.email_usuario ? (
+                      <>
+                        <button style={{ fontSize: 15 }} onClick={() => handleDelete(lei.id)}>Excluir</button>
+                        <button style={{ fontSize: 15, marginLeft: 10 }} onClick={() => startEditing(lei)}>Alterar</button>
+                      </>
                     ) : (
-                      <button style={{ fontSize: 15 }} onClick={() => handleSign(lei.id)}>Assinar</button>
-                    )
-                  )}
-                </td>
-              </tr>
+                      isSigned ? (
+                        <button style={{ fontSize: 15 }} onClick={() => handleUnsign(lei.id)}>Retirar Assinatura</button>
+                      ) : (
+                        <button style={{ fontSize: 15 }} onClick={() => handleSign(lei.id)}>Assinar</button>
+                      )
+                    )}
+                  </td>
+                </tr>
+                {expandedRow === lei.id && (
+                  <tr>
+                    <td colSpan="7">
+                      <div>
+                        <p><strong>Abrangência:</strong> {lei.abrangencia}</p>
+                        <p><strong>Ramo do Direito:</strong> {lei.ramo_direito}</p>
+                        <p><strong>Nome da Proposta:</strong> {lei.nome_proposta}</p>
+                        <p><strong>Exposição dos Motivos:</strong> {lei.exposicao_motivos}</p>
+                        <p><strong>Texto da Lei:</strong> {lei.texto_lei}</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                {editingItem === lei.id && (
+                  <tr>
+                    <td colSpan="7">
+                      <div style={{ marginTop: 20, width: '100%' }}>
+                        <h3>Editar Lei</h3>
+                        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+                          <label htmlFor="abrangencia">Abrangência:</label>
+                          <select id="abrangencia" name="abrangencia" value={formData.abrangencia} onChange={handleInputChange} required>
+                            <option value="">Selecione a abrangência</option>
+                            <option value="Municipal">Municipal</option>
+                            <option value="Estadual">Estadual</option>
+                            <option value="Federal">Federal</option>
+                          </select>
+
+                          <label htmlFor="ramo_direito">Ramo do Direito:</label>
+                          <input
+                            type="text"
+                            id="ramo_direito"
+                            name="ramo_direito"
+                            value={formData.ramo_direito}
+                            onChange={handleInputChange}
+                            required
+                          />
+
+                          <label htmlFor="nome_proposta">Nome da Proposta:</label>
+                          <input
+                            type="text"
+                            id="nome_proposta"
+                            name="nome_proposta"
+                            value={formData.nome_proposta}
+                            onChange={handleInputChange}
+                            required
+                          />
+
+                          <label htmlFor="exposicao_motivos">Exposição dos Motivos:</label>
+                          <textarea
+                            id="exposicao_motivos"
+                            name="exposicao_motivos"
+                            value={formData.exposicao_motivos}
+                            onChange={handleInputChange}
+                            required
+                          />
+
+                          <label htmlFor="texto_lei">Texto da Lei:</label>
+                          <textarea
+                            id="texto_lei"
+                            name="texto_lei"
+                            value={formData.texto_lei}
+                            onChange={handleInputChange}
+                            required
+                          />
+
+                          <button type="submit" style={{ fontSize: 15, marginTop: 10 }}>Salvar Alterações</button>
+                          <button type="button" style={{ fontSize: 15, marginTop: 10 }} onClick={() => setEditingItem(null)}>Cancelar</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                )}
+              </React.Fragment>
             );
           })}
         </tbody>
       </table>
-      {editingItem && (
-        <div style={{ marginTop: 20, width: '100%', maxWidth: 600 }}>
-          <h3>Editar Lei</h3>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-            <label htmlFor="abrangencia">Abrangência:</label>
-            <select id="abrangencia" name="abrangencia" value={formData.abrangencia} onChange={handleInputChange} required>
-              <option value="">Selecione a abrangência</option>
-              <option value="Municipal">Municipal</option>
-              <option value="Estadual">Estadual</option>
-              <option value="Federal">Federal</option>
-            </select>
-            <label htmlFor="ramo_direito">Ramo do Direito:</label>
-            <select id="ramo_direito" name="ramo_direito" value={formData.ramo_direito} onChange={handleInputChange} required>
-              <option value="">Selecione o ramo do direito</option>
-              <option value="Processual">Processual</option>
-              <option value="Administrativo">Administrativo</option>
-              <option value="Constitucional">Constitucional</option>
-              <option value="Consumidor">Consumidor</option>
-              <option value="Ambiental">Ambiental</option>
-              <option value="Tributária">Tributária</option>
-              <option value="Cível">Cível</option>
-              <option value="Penal">Penal</option>
-            </select>
-            <label htmlFor="nome_proposta">Nome da Proposta:</label>
-            <textarea id="nome_proposta" name="nome_proposta" value={formData.nome_proposta} onChange={handleInputChange} rows="4" required></textarea>
-            <label htmlFor="exposicao_motivos">Exposição dos Motivos:</label>
-            <textarea id="exposicao_motivos" name="exposicao_motivos" value={formData.exposicao_motivos} onChange={handleInputChange} rows="4" required></textarea>
-            <label htmlFor="texto_lei">Texto da Lei:</label>
-            <textarea id="texto_lei" name="texto_lei" value={formData.texto_lei} onChange={handleInputChange} rows="4" required></textarea>
-            <button type="submit">Salvar Alterações</button>
-            <button type="button" onClick={() => setEditingItem(null)}>Cancelar</button>
-          </form>
-        </div>
-      )}
     </div>
   );
 };
