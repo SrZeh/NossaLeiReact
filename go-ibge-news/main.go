@@ -61,7 +61,6 @@ func SaveNoticiasToFirestore(client *firestore.Client, noticias []Noticia) error
 
 	return nil
 }
-
 // FetchNoticiasHandler handles the HTTP request and returns news data
 func FetchNoticiasHandler(w http.ResponseWriter, r *http.Request) {
 	url := "http://servicodados.ibge.gov.br/api/v3/noticias/?tipo=noticia&qtd=10&destaque=1&de=01-01-2022"
