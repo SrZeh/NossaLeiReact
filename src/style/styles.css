@@ -23,7 +23,7 @@ body {
 
 nav {
     display: inline-block;
-    float: right; /* Alinha os botões à direita */
+     float: right; /* Alinha os botões à direita */
 }
 
 nav a {
@@ -91,6 +91,34 @@ select {
     font-size: 20px;
     
 }
+
+/* Centralizando os links no header */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: none; /* Remove o float para centralizar */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para garantir que o layout seja responsivo */
+}
+
+.logo {
+    margin-right: auto; /* Mantém a logo à esquerda */
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+
 
 /* ... Seu código CSS posterior ... */
 
