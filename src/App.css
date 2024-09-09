@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+button#submitBtn {
+  background-color: #4CAF50; /* Verde para o botão de enviar */
+  color: white;
+  margin-right: 10px; /* Distância entre os botões */
+}
+
+button#clearBtn {
+  background-color: #FFA500; /* Laranja para o botão de limpar */
+  color: white;
+}

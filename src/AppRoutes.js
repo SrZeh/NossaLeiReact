@@ -6,6 +6,7 @@ import NewLawScreen from './screens/NewLawScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import News from './screens/News';
 import LawList from './screens/LawList';
+import Undersigned from './screens/Undersigned';
 
 const AppRoutes = () => (
     <Routes>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
         <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
         <Route path="/news" element={<News />} />
         <Route path="/law-list" element={<LawList />} />
+        <Route path="/undersigned" element={<Undersigned />} />
     </Routes>
 );
 
