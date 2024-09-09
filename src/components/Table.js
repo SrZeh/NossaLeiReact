@@ -289,7 +289,6 @@
 
 // export default Table;
 
-
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from '../firebase';
@@ -298,16 +297,11 @@ import { useAuth } from '../context/AuthContext';
 // Função para buscar dados de leis
 export const fetchLeiData = async (selectedAbrangencia) => {
   try {
-    if (selectedAbrangencia === "Todas") {
-      const querySnapshot = await getDocs(collection(db, "leis"));
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      return data;
-    } else {
-      const q = query(collection(db, "leis"), where("abrangencia", "==", selectedAbrangencia));
-      const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      return data;
-    }
+    const querySnapshot = selectedAbrangencia === "Todas" 
+      ? await getDocs(collection(db, "leis")) 
+      : await getDocs(query(collection(db, "leis"), where("abrangencia", "==", selectedAbrangencia)));
+    
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error('Error fetching data:', error);
     return [];
@@ -315,7 +309,7 @@ export const fetchLeiData = async (selectedAbrangencia) => {
 };
 
 const Table = () => {
-  const { currentUser } = useAuth(); // Obtém o usuário atual do contexto de autenticação
+  const { currentUser } = useAuth();
   const [leiData, setLeiData] = useState([]);
   const [selectedAbrangencia, setSelectedAbrangencia] = useState('Todas');
   const [expandedRow, setExpandedRow] = useState(null);
@@ -328,14 +322,13 @@ const Table = () => {
     texto_lei: ''
   });
 
-  const toggleExpandRow = (leiId) => {
-    setExpandedRow(expandedRow === leiId ? null : leiId);
-  };
-
-  const truncateText = (text) => {
-    if (!text) return '';  // Adiciona verificação para text indefinido ou vazio
-    return text.length > 10 ? text.slice(0, 10) + '...' : text;
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchLeiData(selectedAbrangencia);
+      setLeiData(data);
+    };
+    fetchData();
+  }, [selectedAbrangencia]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -348,8 +341,7 @@ const Table = () => {
       try {
         const leiRef = doc(db, "leis", editingItem);
         await updateDoc(leiRef, formData);
-        const data = await fetchLeiData(selectedAbrangencia);
-        setLeiData(data);
+        setLeiData(await fetchLeiData(selectedAbrangencia));
         setEditingItem(null);
         setFormData({
           abrangencia: '',
@@ -375,22 +367,11 @@ const Table = () => {
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchLeiData(selectedAbrangencia);
-      setLeiData(data);
-    };
-
-    fetchData();
-  }, [selectedAbrangencia]);
-
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Você tem certeza de que deseja excluir esta lei?');
-    if (confirmDelete) {
+    if (window.confirm('Você tem certeza de que deseja excluir esta lei?')) {
       try {
         await deleteDoc(doc(db, "leis", id));
-        const data = await fetchLeiData(selectedAbrangencia);
-        setLeiData(data);
+        setLeiData(await fetchLeiData(selectedAbrangencia));
       } catch (error) {
         console.error("Error:", error);
       }
@@ -401,10 +382,9 @@ const Table = () => {
     try {
       const leiRef = doc(db, "leis", id);
       await updateDoc(leiRef, {
-        assinaturas: arrayUnion(currentUser.email) // Adiciona o email ao array 'assinaturas'
+        assinaturas: arrayUnion(currentUser.email)
       });
-      const data = await fetchLeiData(selectedAbrangencia); // Atualiza a tabela após assinar
-      setLeiData(data);
+      setLeiData(await fetchLeiData(selectedAbrangencia));
     } catch (error) {
       console.error("Erro ao assinar a lei:", error);
     }
@@ -414,22 +394,24 @@ const Table = () => {
     try {
       const leiRef = doc(db, "leis", id);
       await updateDoc(leiRef, {
-        assinaturas: arrayRemove(currentUser.email) // Remove o email do array 'assinaturas'
+        assinaturas: arrayRemove(currentUser.email)
       });
-      const data = await fetchLeiData(selectedAbrangencia); // Atualiza a tabela após retirar a assinatura
-      setLeiData(data);
+      setLeiData(await fetchLeiData(selectedAbrangencia));
     } catch (error) {
       console.error("Erro ao retirar a assinatura:", error);
     }
   };
 
+  const truncateText = (text) => {
+    return text?.length > 10 ? `${text.slice(0, 10)}...` : text || '';
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
       <div>
         <h2>Escolha a Abrangência</h2>
         <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10 }}>
-          {/* Opções de abrangência */}
           <label>
             <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Municipal
@@ -449,13 +431,13 @@ const Table = () => {
         </div>
       </div>
       
-      {/* Exibição em cards */}
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         {leiData.map(lei => {
-          const isSigned = lei.assinaturas?.includes(currentUser.email); // Verifica se o usuário já assinou a lei
+          const isSigned = lei.assinaturas?.includes(currentUser.email);
+
           return (
             <div key={lei.id} style={{ border: '2px solid #ccc', borderRadius: '8px', padding: '15px', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
-              <div onClick={() => toggleExpandRow(lei.id)} style={{ cursor: 'pointer' }}>
+              <div onClick={() => setExpandedRow(expandedRow === lei.id ? null : lei.id)} style={{ cursor: 'pointer' }}>
                 <h3>{truncateText(lei.nome_proposta)}</h3>
                 <p><strong>Ramo do Direito:</strong> {truncateText(lei.ramo_direito)}</p>
                 <p><strong>Abrangência:</strong> {truncateText(lei.abrangencia)}</p>
@@ -480,11 +462,39 @@ const Table = () => {
               </div>
 
               {expandedRow === lei.id && (
-                <div style={{ marginTop: '15px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '5px' }}>
+                <div>
+                  <p><strong>Abrangência:</strong> {lei.abrangencia}</p>
+                  <p><strong>Ramo do Direito:</strong> {lei.ramo_direito}</p>
                   <p><strong>Nome da Proposta:</strong> {lei.nome_proposta}</p>
-                  <p><strong>Exposição de Motivos:</strong> {lei.exposicao_motivos}</p>
+                  <p><strong>Exposição dos Motivos:</strong> {lei.exposicao_motivos}</p>
                   <p><strong>Texto da Lei:</strong> {lei.texto_lei}</p>
                 </div>
+              )}
+
+              {editingItem === lei.id && (
+                <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
+                  <label>Abrangência:</label>
+                  <select name="abrangencia" value={formData.abrangencia} onChange={handleInputChange}>
+                    <option value="">Selecione a abrangência</option>
+                    <option value="Municipal">Municipal</option>
+                    <option value="Estadual">Estadual</option>
+                    <option value="Federal">Federal</option>
+                  </select>
+
+                  <label>Ramo do Direito:</label>
+                  <input type="text" name="ramo_direito" value={formData.ramo_direito} onChange={handleInputChange} />
+
+                  <label>Nome da Proposta:</label>
+                  <input type="text" name="nome_proposta" value={formData.nome_proposta} onChange={handleInputChange} />
+
+                  <label>Exposição dos Motivos:</label>
+                  <input type="text" name="exposicao_motivos" value={formData.exposicao_motivos} onChange={handleInputChange} />
+
+                  <label>Texto da Lei:</label>
+                  <textarea name="texto_lei" value={formData.texto_lei} onChange={handleInputChange}></textarea>
+
+                  <button type="submit">Salvar Alterações</button>
+                </form>
               )}
             </div>
           );
