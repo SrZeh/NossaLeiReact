@@ -403,7 +403,7 @@ const Table = () => {
   };
 
   const truncateText = (text) => {
-    return text?.length > 10 ? `${text.slice(0, 10)}...` : text || '';
+    return text?.length > 50 ? `${text.slice(0, 50)}...` : text || '';
   };
 
   return (
@@ -436,11 +436,11 @@ const Table = () => {
           const isSigned = lei.assinaturas?.includes(currentUser.email);
 
           return (
-            <div key={lei.id} style={{ border: '2px solid #ccc', borderRadius: '8px', padding: '15px', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
+            <div key={lei.id} style={{ border: '2px solid #000', borderRadius: '8px', padding: '15px', backgroundColor:'#fff', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
               <div onClick={() => setExpandedRow(expandedRow === lei.id ? null : lei.id)} style={{ cursor: 'pointer' }}>
-                <h3>{truncateText(lei.nome_proposta)}</h3>
-                <p><strong>Ramo do Direito:</strong> {truncateText(lei.ramo_direito)}</p>
-                <p><strong>Abrangência:</strong> {truncateText(lei.abrangencia)}</p>
+                <h3>{truncateText(lei.nome_proposta, 50)}</h3>
+                <p><strong>Ramo do Direito:</strong> {truncateText(lei.ramo_direito, 50)}</p>
+                <p><strong>Abrangência:</strong> {truncateText(lei.abrangencia, 50)}</p>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
