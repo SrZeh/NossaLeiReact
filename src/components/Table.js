@@ -406,42 +406,101 @@ const Table = () => {
     return text?.length > 50 ? `${text.slice(0, 50)}...` : text || '';
   };
 
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           entry.target.classList.add('visible');
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.3 } // Elemento precisa estar 10% visível para ativar animação
+  //   );
+
+  //   const elements = document.querySelectorAll('.fade-in');
+  //   elements.forEach((el) => observer.observe(el));
+  // }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible'); // Adiciona a classe 'visible' para tornar o elemento visível
+          } else {
+            entry.target.classList.remove('visible'); // Remove 'visible' se o elemento não estiver mais visível (opcional)
+          }
+        });
+      },
+      { threshold: 0.1 } // Elemento precisa estar 10% visível para ativar a animação
+    );
+  
+    const elements = document.querySelectorAll('.fade-in');
+    elements.forEach((el) => observer.observe(el));
+  
+    // Limpar o observer quando o componente for desmontado
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+  
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
-      <div>
-        <h2>Escolha a Abrangência</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10 }}>
-          <label>
+      <div 
+      
+      style={{
+        border: '1px solid #000',
+        borderRadius: '15px',
+        padding: '15px',
+        backgroundColor:'#d9d9d9',
+        margin: '10px',
+        width: '35%',
+        boxShadow: '0 4px 8px rgba(0,1,0,1)',
+        alignContent: 'center',
+        textAlign: 'center'
+        }}>
+      <h1 className="fade-in" style={{ textAlign: 'center' }}>Propostas de Lei</h1>
+        <h2 className="fade-in">Escolha a Abrangência</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10, alignItems: 'left', textAlign:'left', marginLeft: '75px' }}>
+          <label className="fade-in">
             <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Municipal
           </label>
-          <label>
+          <label className="fade-in">
             <input type="radio" value="Estadual" checked={selectedAbrangencia === "Estadual"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Estadual
           </label>
-          <label>
+          <label className="fade-in">
             <input type="radio" value="Federal" checked={selectedAbrangencia === "Federal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Federal
           </label>
-          <label>
+          <label className="fade-in">
             <input type="radio" value="Abaixo Assinado" checked={selectedAbrangencia === "Abaixo Assinado"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Abaixo Assinado
           </label>
-          <label>
+          <label className="fade-in">
             <input type="radio" value="Todas" checked={selectedAbrangencia === "Todas"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Todas
           </label>
         </div>
       </div>
       
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+      
+      <div  style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         {leiData.map(lei => {
           const isSigned = lei.assinaturas?.includes(currentUser.email);
 
           return (
-            <div key={lei.id} style={{ border: '2px solid #000', borderRadius: '8px', padding: '15px', backgroundColor:'#fff', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
-              <div onClick={() => setExpandedRow(expandedRow === lei.id ? null : lei.id)} style={{ cursor: 'pointer' }}>
+            <div  
+            key={lei.id} 
+            
+            style={{ border: '2px solid #000', borderRadius: '8px', padding: '15px', backgroundColor:'#d9d9d9', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,1)' }}
+            
+            >
+              <div  onClick={() => setExpandedRow(expandedRow === lei.id ? null : lei.id)} style={{ cursor: 'pointer' }}>
                 <h3>{truncateText(lei.nome_proposta, 50)}</h3>
                 <p><strong>Ramo do Direito:</strong> {truncateText(lei.ramo_direito, 50)}</p>
                 <p><strong>Abrangência:</strong> {truncateText(lei.abrangencia, 50)}</p>
@@ -457,13 +516,14 @@ const Table = () => {
                     </>
                   ) : (
                     isSigned ? (
-                      <button style={{ fontSize: 15, backgroundColor: '#ffcccb', color: 'black', border: 'none', padding: '8px', margin: '0 5px' }} onClick={() => handleUnsign(lei.id)}>Retirar Assinatura</button>
+                      <button style={{ fontSize: 15, backgroundColor: '#7a5656', color: 'white', border: 'none', padding: '8px', margin: '0 5px' }} onClick={() => handleUnsign(lei.id)}>Retirar Assinatura</button>
                     ) : (
                       <button style={{ fontSize: 15, backgroundColor: 'green', color: 'white', border: 'none', padding: '8px', margin: '0 5px' }} onClick={() => handleSign(lei.id)}>Assinar</button>
                     )
                   )}
                 </div>
               </div>
+              
 
               {expandedRow === lei.id && (
                 <div>
