@@ -115,7 +115,7 @@ function LawList() {
             </h3>
           </div>
 
-  <div className="main-content">
+  <div className="main-content slide-right">
     <div className="text-block slide-right">
       
       <p style={{maxWidth:'40%'}} className="right-text">

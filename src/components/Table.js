@@ -447,14 +447,15 @@ const Table = () => {
   
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ paddingTop: '25px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
       <div 
       
       style={{
+        
         border: '1px solid #000',
         borderRadius: '15px',
-        padding: '15px',
+        padding: '8px',
         backgroundColor:'#d9d9d9',
         margin: '10px',
         width: '35%',
@@ -462,9 +463,9 @@ const Table = () => {
         alignContent: 'center',
         textAlign: 'center'
         }}>
-      <h1 className="fade-in" style={{ textAlign: 'center' }}>Propostas de Lei</h1>
+      <h1 className="fade-in" style={{ textAlign: 'center'  }}>Propostas de Lei</h1>
         <h2 className="fade-in">Escolha a Abrangência</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10, alignItems: 'left', textAlign:'left', marginLeft: '75px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10,  alignItems: 'left', textAlign:'left', marginLeft: '75px' }}>
           <label className="fade-in">
             <input type="radio" value="Municipal" checked={selectedAbrangencia === "Municipal"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Municipal
@@ -489,7 +490,7 @@ const Table = () => {
       </div>
       
       
-      <div  style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+      <div  style={{ display: 'flex',paddingTop:'25px', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         {leiData.map(lei => {
           const isSigned = lei.assinaturas?.includes(currentUser.email);
 
@@ -497,7 +498,7 @@ const Table = () => {
             <div  
             key={lei.id} 
             
-            style={{ border: '2px solid #000', borderRadius: '8px', padding: '15px', backgroundColor:'#d9d9d9', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,1)' }}
+            style={{ border: '2px solid #000', borderRadius: '15px', padding: '15px', backgroundColor:'#d9d9d9', margin: '10px', width: '80%', boxShadow: '0 4px 8px rgba(0,0,0,1)' }}
             
             >
               <div  onClick={() => setExpandedRow(expandedRow === lei.id ? null : lei.id)} style={{ cursor: 'pointer' }}>
