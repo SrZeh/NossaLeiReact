@@ -425,6 +425,10 @@ const Table = () => {
             Federal
           </label>
           <label>
+            <input type="radio" value="Abaixo Assinado" checked={selectedAbrangencia === "Abaixo Assinado"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
+            Abaixo Assinado
+          </label>
+          <label>
             <input type="radio" value="Todas" checked={selectedAbrangencia === "Todas"} onChange={(e) => setSelectedAbrangencia(e.target.value)} />
             Todas
           </label>
