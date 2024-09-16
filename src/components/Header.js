@@ -21,7 +21,7 @@ const Header = () => {
         <header className="header">
             <div className="logo">
                 <Link to="/law-list">
-                    <img src={homeLogo} alt="Logo" />
+                    <img style={{width: '100px'}} src={homeLogo} alt="Logo" />
                 </Link>
             </div>
             <nav className="nav-links">
