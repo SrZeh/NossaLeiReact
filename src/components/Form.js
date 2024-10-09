@@ -141,7 +141,8 @@ const Form = () => {
             'ambiental': 'Ambiental',
             'tributaria': 'Tributária',
             'civil': 'Cível',
-            'penal': 'Penal'
+            'penal': 'Penal',
+            'trabalhista': 'Trabalhista'
         }[formData.ramo_direito];
 
         const formDataToSend = {
@@ -196,6 +197,7 @@ const Form = () => {
                     <option value="tributaria">Tributária</option>
                     <option value="civil">Cível</option>
                     <option value="penal">Penal</option>
+                    <option value="trabalhista">Trabalhista</option>
                 </select>
 
                 <label htmlFor="nome_proposta">Nome da Proposta de Lei:</label>
