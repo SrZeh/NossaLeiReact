@@ -174,7 +174,7 @@ const Table = () => {
         alignContent: 'center',
         textAlign: 'center'
         }}>
-      <h1 className="fade-in" style={{ textAlign: 'center'  }}>Propostas de Lei</h1>
+      <h1 className="fade-in" style={{ textAlign: 'center'  }}>Conhça as Propostas de Lei</h1>
         <h2 className="fade-in">Escolha a Abrangência</h2>
         <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10,  alignItems: 'left', textAlign:'left', marginLeft: '75px' }}>
           <label className="fade-in">
