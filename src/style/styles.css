@@ -182,3 +182,7 @@ select, textarea {
         width: 90%;
     }
 }
+
+.linknews {
+    color:blue;
+}

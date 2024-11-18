@@ -2,6 +2,13 @@
 import React, { useEffect } from 'react';
 import Table from '../components/Table';
 import Header from '../components/Header';
+import bracos from '../assets/images/bracos.jpg';
+// import cadeiras from '../assets/images/cadeiras.jpg';
+import homenslei from '../assets/images/homenslei.jpg';
+import martelo from '../assets/images/martelo.png';
+import megafone from '../assets/images/megafone.jpg';
+import lutas from '../assets/images/lutas.png';
+
 
 function LawList() {
   useEffect(() => {
@@ -35,24 +42,42 @@ function LawList() {
             <h2 style={{textAlign: 'center', fontSize: '20px', maxWidth: '75%'}}>
               “Todo poder emana do povo, que o exerce por meio de representantes eleitos ou diretamente, nos termos desta Constituição.”
             </h2>
+            
           </div>
-          <div style={{borderColor: '#000', borderLeft: '2px solid', padding:'20px', borderRadius:'10px',display: 'inline-block'}} className="fade-in left-content">
-            <p style={{textAlign: 'left', fontSize: '20px', maxWidth: '50%', position:'right'}}>
+
+          <div style={{display: 'flex'}}>
+          <div  style={{borderColor: '#000', borderLeft: '2px solid', padding:'20px', borderRadius:'10px',display: 'inline-block', flex:'1' }} className="fade-in left-content">
+            <p style={{textAlign: 'left', fontSize: '20px', position:'right'}}>
               Nosso objetivo é facilitar a criação de propostas de leis de iniciativa popular e abaixo-assinados. Aqui, você pode visualizar,
               apoiar e criar propostas de leis e abaixo-assinados, contribuindo diretamente para a democracia digital.
             </p>
           </div>
-          <div style={{borderColor: '#000', borderRight: '2px solid', padding:'20px', borderRadius: '10px',}} className="text-block fade-in right-content">
-            <p style={{textAlign:'right', maxWidth: '50%', fontSize: '20px'}}>
+          <div style={{ flex:'1'}}>
+            <img src={megafone} alt="mega fone" style={{width: '300px', height: '300px'}} />
+            </div>
+          </div>
+
+          <div style={{display: 'flex'}}>
+
+          <div style={{ flex:'1'}}>
+            <img src={bracos} alt="povo" style={{width: '300px', height: '300px', paddingLeft:'75px'}} />
+            </div>
+          <div style={{borderColor: '#000', borderRight: '2px solid', padding:'20px', borderRadius: '10px', flex:'1'}} className="text-block fade-in right-content">
+            <p style={{textAlign:'right', fontSize: '20px'}}>
               Somos uma plataforma de participação popular desenvolvida por estudantes de Análise e Desenvolvimento de Sistemas da Faculdade
               Unicesusc, comprometidos em promover a cidadania ativa.
             </p>
+            
+            
           </div>
 
+          </div>
+    
   <div className="main-content slide-right">
-    <div className="text-block slide-right">
+    
+    <div style={{display:'flex'}} className="text-block slide-right">
       
-      <p style={{maxWidth:'40%'}} className="right-text">
+      <p style={{maxWidth:'40%', flex:'1'}} className="right-text">
       <h3 className="centered-title">Leis Federais:</h3>
         A Constituição Federal de 1988 permite a apresentação de projetos de lei por iniciativa popular. Segundo o artigo 61, §2º:
         <br /><br />
@@ -63,11 +88,21 @@ function LawList() {
         significa que aproximadamente 1,56 milhão de assinaturas seriam necessárias para uma proposta de iniciativa popular em âmbito
         federal.
       </p>
+
+      <div style={{ flex:'1'}}>
+        <img src={lutas} alt="povo" style={{width: '300px', height: '300px', marginLeft:'100px',}} />
+      </div>
+
+      
     </div>
 
-    <div className="text-block slide-right">
+    <div style={{ display:'flex'}} className="text-block slide-right">
+
+    <div style={{ flex:'1'}}>
+        <img src={homenslei} alt="homens da lei" style={{width: '400px', height: '300px', marginLeft:'50px',}} />
+      </div>
       
-      <p style={{maxWidth:'40%'}} className="left-text">
+      <p style={{maxWidth:'40%', flex:'1' }} className="left-text">
       <h3 className="centered-title">Leis Estaduais:</h3>
         As regras para leis de iniciativa popular em nível estadual variam de estado para estado, conforme suas constituições, mas seguem
         um formato semelhante ao federal.
@@ -75,20 +110,28 @@ function LawList() {
         Em geral, exige-se o apoio de 1% do eleitorado estadual, distribuído em vários municípios com percentuais mínimos de eleitores
         em cada um.
       </p>
+
+      
+
     </div>
 
     <div className="main-content">
  
 
-<div className="text-block slide-left">
+    <div style={{display:'flex'}} className="text-block slide-left">
       
-      <p style={{maxWidth:'40%'}} className="right-text fade-in">
+      <p style={{ flex:'1'}} className="right-text fade-in">
       <h3 className="centered-title">Leis Municipais:</h3>
         A Lei Orgânica de cada município define as regras para a apresentação 
         de propostas de lei por iniciativa popular. 
         Normalmente, exige-se que a proposta seja assinada por 5% do eleitorado municipal, 
         mas esse percentual pode variar conforme a legislação local.
       </p>
+
+      <div style={{ flex:'1'}}>
+        <img src={martelo} alt="martelo" style={{width: '400px', height: '200px', marginLeft:'50px',}} />
+      </div>
+
     </div>
     </div>
     
@@ -97,13 +140,11 @@ function LawList() {
 
 <Table />
         </div>
-        
-        
-        
       </div>
-      
-    // </div>
   );
 }
 
 export default LawList;
+
+
+
