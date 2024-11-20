@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Table from '../components/Table';
 import Header from '../components/Header';
@@ -145,6 +144,3 @@ function LawList() {
 }
 
 export default LawList;
-
-
-

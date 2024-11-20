@@ -216,6 +216,7 @@ const Table = () => {
                 <h3>{truncateText(lei.nome_proposta, 50)}</h3>
                 <p><strong>Ramo do Direito:</strong> {truncateText(lei.ramo_direito, 50)}</p>
                 <p><strong>Abrangência:</strong> {truncateText(lei.abrangencia, 50)}</p>
+                <p><strong>Exposição dos Motivos:</strong> {truncateText(lei.exposicao_motivos, 50)}</p>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
