@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="logo">
-                <Link to="/law-list">
+                <Link to="/about">
                     <img style={{width: '100px'}} src={homeLogo} alt="Logo" />
                 </Link>
             </div>
@@ -48,7 +48,7 @@ export function HeaderOnBoarding() {
     return (
         <header className="header">
             <div className="logo">
-                <Link to="/">
+                <Link to="/about">
                     <img src={homeLogo} alt="Logo" />
                 </Link>
             </div>

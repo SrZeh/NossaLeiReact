@@ -22,7 +22,7 @@ export default function NewUserScreen() {
         try {
             const auth = getAuth(app);
             await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/law-list");
+            navigate("/about");
         } catch (error) {
             setError(error.message);
         }

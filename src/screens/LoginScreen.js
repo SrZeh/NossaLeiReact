@@ -22,7 +22,7 @@ export default function LoginScreen() {
             // Attempt to sign in with email and password
             await signInWithEmailAndPassword(auth, email, password);
             // On successful login, navigate to the desired route
-            navigate("/law-list");
+            navigate("/about");
         } catch (err) {
             // Handle authentication errors
             switch (err.code) {
